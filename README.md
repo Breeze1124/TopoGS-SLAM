@@ -1,8 +1,8 @@
-# RGS-SLAM: Robust Gaussian Splatting SLAM with One-Shot Dense Initialization
+# Rethinking Densification in Gaussian SLAM: A Stationary Sampling Perspective
 
 <div align="center">
 
-[![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://breeze1124.github.io/rgs-slam-project-page/)
+[![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://breeze1124.github.io/topogs-slam-project-page/)
 [![Paper](https://img.shields.io/badge/Paper-PDF-gray)](https://arxiv.org/pdf/2601.00705)
 [![arXiv](https://img.shields.io/badge/arXiv-2601.00705-b31b1b.svg)](https://arxiv.org/abs/2601.00705https://arxiv.org/pdf/2601.00705)
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Paper-ffc107?color=ffc107&labelColor=gray)](https://huggingface.co/papers/2601.00705)
@@ -15,7 +15,7 @@
   <img src="figures/domain.png" width="80%">
 </p>
 
-RGS-SLAM integrates dense feature matching, multi-view triangulation, and a differentiable 3D Gaussian splatting (3DGS) renderer into a single SLAM system.  
+TopoGS-SLAM integrates dense feature matching, multi-view triangulation, and a differentiable 3D Gaussian splatting (3DGS) renderer into a single SLAM system.  
 Keyframes trigger dense DINOv3 feature extraction, confidence-weighted multi-view correspondence aggregation, and one-shot triangulation that spawns a fixed set of anisotropic Gaussians. Subsequent tracking and mapping refine only pose and Gaussian parameters under analytic SE(3) Jacobians, which yields a stationary optimization objective and improves both convergence speed and rendering fidelity on indoor sequences.
 
 ---
@@ -23,7 +23,7 @@ Keyframes trigger dense DINOv3 feature extraction, confidence-weighted multi-vie
 ## 2. Repository Structure
 
 ```text
-RGS-SLAM/
+TopoGS-SLAM/
 ├── configs/              # YAML configuration files for all experiments
 │   ├── mono/             # Monocular SLAM configs (e.g., TUM RGB-D monocular)
 │   ├── rgbd/             # RGB-D configs (e.g., TUM RGB-D, Replica)
@@ -39,9 +39,9 @@ RGS-SLAM/
 ├── Dockerfile            # Optional Docker image definition for reproducible environments
 ├── LICENSE.md            # License for this repository (research and educational use)
 ├── README.md             # Project description and usage instructions
-├── environment.yml       # Conda environment specification for RGS-SLAM
+├── environment.yml       # Conda environment specification for TopoGS-SLAM
 ├── requirement.txt       # Python package requirements (pip)
-└── rgs_slam.py           # Main entry point for running RGS-SLAM
+└── topogs_slam.py           # Main entry point for running TopoGS-SLAM
 ```
 
 ---
@@ -53,13 +53,13 @@ We recommend creating a dedicated conda environment:
 
 ```bash
 # Clone repository and submodules
-git clone https://github.com/Breeze1124/RGS-SLAM.git
-cd RGS-SLAM
+git clone https://github.com/Breeze1124/TopoGS-SLAM.git
+cd TopoGS-SLAM
 git submodule update --init --recursive
 
 # Create environment (option A: conda)
 conda env create -f environment.yml
-conda activate rgs-slam
+conda activate topogs-slam
 
 # or install via pip (option B)
 pip install -r requirement.txt
@@ -89,18 +89,18 @@ bash scripts/download_replica.sh
 
 ## 5. Quick Start
 
-Once the environment and datasets are prepared, RGS-SLAM can be launched with a single command.  
+Once the environment and datasets are prepared, TopoGS-SLAM can be launched with a single command.  
 Below are example invocations; adjust the config paths to match your setup.
 
 ```bash
 # RGB-D SLAM on TUM fr1/desk
-python rgs_slam.py --config configs/rgbd/fr1_desk.yaml
+python topogs_slam.py --config configs/rgbd/fr1_desk.yaml
 
 # RGB-D SLAM on Replica office0
-python rgs_slam.py --config configs/rgbd/replica_office0.yaml
+python topogs_slam.py --config configs/rgbd/replica_office0.yaml
 
 # Monocular SLAM on TUM fr3/office (if enabled)
-python rgs_slam.py --config configs/mono/fr3_office.yaml
+python topogs_slam.py --config configs/mono/fr3_office.yaml
 ```
 
 By default, tracking runs in real time, and mapping is executed asynchronously within a bounded local window. The GUI tools in `gui/` can be used to visualize trajectories and rendered views during or after a run.
@@ -127,7 +127,7 @@ Please contact the authors for commercial licensing inquiries.
 ## Contact
 If you have any questions, feedback, or are interested in collaboration, feel free to reach out through the following channels:
 
-🌐 Project Page: https://breeze1124.github.io/rgs-slam-project-page/  
+🌐 Project Page: https://breeze1124.github.io/topogs-slam-project-page/  
 📧 Email: andy5552555.ii13@nycu.edu.tw  
 💼 LinkedIn: https://www.linkedin.com/in/chengweitse/  
 
